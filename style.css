@@ -1,3 +1,11 @@
+:root {
+  --background: #dde1e7;
+  --container: #ffffff;
+  --main-color: #37817e;
+  --button-color: #797c7c;
+  --output: #e5e5e5;
+  --list-color: lightgrey;
+}
 * {
     padding: 0;
     margin: 0;
@@ -5,7 +13,22 @@
     font-family: "Poppins", sans-serif;
   }
   body {
-    background-color: #f7f9fd;
+    background-color: var(--background);
+  }
+  .app-title {
+
+    height: 4em;
+    margin: 1em auto;
+    font-size: 20px;
+    max-width: 38em;
+    background-color: var(--button-color);
+    color: white;
+    display: block;
+    text-align: center;
+    text-decoration-line:underline;
+    display: block;
+    text-align: center;
+    padding: .8em;
   }
   .wrapper {
     width: 90%;
@@ -48,18 +71,20 @@
     margin-bottom: 0.6em;
   }
   .container input:focus {
-    border-color: #587ef4;
+    border-color: var(--main-color);
   }
-  .total-budget-container,
+  .total-amount-container,
   .user-amount-container {
-    background-color: #ffffff;
+    background-color: var(--container);
     padding: 1.25em 0.9em;
     border-radius: 0.3em;
     box-shadow: 0 0.6em 1.2em rgba(28, 0, 80, 0.06);
+    position: relative;
+    height: 220px;
   }
   .output-container {
-    background-color: #587ef4;
-    color: #ffffff;
+    background-color: var(--main-color);
+    color: var(--container);
     border-radius: 0.3em;
     box-shadow: 0 0.6em 1.2em rgba(28, 0, 80, 0.06);
     margin: 2em 0;
@@ -73,33 +98,59 @@
     display: block;
     text-align: center;
     font-weight: 400;
-    color: #e5e5e5;
+    color: var(--output);
   }
   .submit {
     font-size: 1em;
     margin-top: 0.8em;
-    background-color: #587ef4;
+    background-color: var(--button-color);
     border: none;
     outline: none;
     color: #ffffff;
     padding: 0.6em 1.2em;
     border-radius: 0.3em;
     cursor: pointer;
+    position:absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+  .quit-container {
+    display: block;
+    text-align: center;
+    font-weight: 400;
+    color: var(--output);
+  }
+  .quit-button {
+    font-size: 1em;
+    margin-top: 0.8em;
+    background-color: var(--button-color);
+    border: none;
+    outline: none;
+    color: #ffffff;
+    padding: 0.6em 1.2em;
+    border-radius: 0.3em;
+    cursor: pointer;
+    position:absolute;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
   }
   .list {
-    background-color: #ffffff;
+    background-color: var(--container);
     padding: 1.8em 1.2em;
     box-shadow: 0 0.6em 1.2em rgba(28, 0, 80, 0.06);
     border-radius: 0.6em;
   }
   .sublist-content {
     width: 100%;
-    border-left: 0.3em solid #587ef4;
+    border-left: 0.3em solid yellow;
     margin-bottom: 0.6em;
     padding: 0.5em 1em;
     display: grid;
     grid-template-columns: 3fr 2fr 1fr 1fr;
+    background-color: var(--list-color);
   }
+
   .expense {
     font-weight: 500;
     color: #363d55;
@@ -124,9 +175,22 @@
   }
   .edit {
     margin-left: auto;
+    background-color: #587ef4;
+  }
+  .delete {
+    background-color: #ff465a;
   }
   .edit,
   .delete {
+    cursor: pointer;
+    margin-right: 1.5em;
+    border-radius: 10%;
+    color:white;
+    padding: 0 5px 0 5px;
+    font-size: small;
+    border:solid 1px #363d55;
+  }
+  .hold {
     background: transparent;
     cursor: pointer;
     margin-right: 1.5em;

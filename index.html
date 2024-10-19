@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="app-title">
+      <h2>Budget Me!</h2>
+    </div>
     <div class="wrapper">
       <div class="container">
         <div class="sub-container">
@@ -29,7 +32,7 @@
             <input
               type="number"
               id="total-amount"
-              placeholder="Enter Total Amount"
+              placeholder="Enter Total Budget"
             />
             <button class="submit" id="total-amount-button">Set Budget</button>
           </div>
@@ -44,14 +47,14 @@
               type="text"
               class="product-title"
               id="product-title"
-              placeholder="Enter Title of Product"
+              placeholder="Enter Description of Expense"
             />
             <input
               type="number"
               id="user-amount"
-              placeholder="Enter Cost of Product"
+              placeholder="Enter Amount of Expense"
             />
-            <button class="submit" id="check-amount">Check Amount</button>
+            <button class="submit" id="check-amount">Submit Expense</button>
           </div>
         </div>
         <!-- Output -->
@@ -75,6 +78,9 @@
         <h3>Expense List</h3>
         <div class="list-container" id="list"></div>
       </div>
+    </div>
+    <div class="quit-container">
+      <button class="quit-button" id="quit-button">Quit</button>
     </div>
     <!-- Script -->
     <script src="script.js"></script>

@@ -10,8 +10,23 @@ const amount = document.getElementById("amount");
 const expenditureValue = document.getElementById("expenditure-value");
 const balanceValue = document.getElementById("balance-amount");
 const list = document.getElementById("list");
+const quitButton = document.getElementById("quit-button");
 let tempAmount = 0;
 
+//Set Quit
+quitButton.addEventListener("click", () => {
+  // Add local storage
+  let currentBudget = amount.innerText;
+  let currentBalance = balanceValue.innerText;
+  let currentExpense = expenditureValue.innerText;
+  localStorage.setItem("budgetAmt", currentBudget);
+  localStorage.setItem("balanceAmt", currentBalance);
+  localStorage.setItem("expenseAmt", currentExpense);
+  console.log("currentBudget: "+currentBudget);
+  console.log("currentBalance: "+currentBalance);
+  console.log("currentExpense: "+currentExpense);
+
+})
 //Set Budget Part
 totalAmountButton.addEventListener("click", () => {
   tempAmount = totalAmount.value;
@@ -43,8 +58,10 @@ const modifyElement = (element, edit = false) => {
   let currentBalance = balanceValue.innerText;
   let currentExpense = expenditureValue.innerText;
   let parentAmount = parentDiv.querySelector(".amount").innerText;
+  console.log("parentAmount: "+parentAmount);
   if (edit) {
     let parentText = parentDiv.querySelector(".product").innerText;
+    console.log("parentText: "+parentText);
     productTitle.value = parentText;
     userAmount.value = parentAmount;
     disableButtons(true);
@@ -62,14 +79,18 @@ const listCreator = (expenseName, expenseValue) => {
   list.appendChild(sublistContent);
   sublistContent.innerHTML = `<p class="product">${expenseName}</p><p class="amount">${expenseValue}</p>`;
   let editButton = document.createElement("button");
-  editButton.classList.add("fa-solid", "fa-pen-to-square", "edit");
-  editButton.style.fontSize = "1.2em";
+  //editButton.classList.add("fa-solid", "fa-pen-to-square", "edit");
+  editButton.classList.add("edit");
+  //editButton.style.fontSize = "1.2em";
+  editButton.textContent = "Edit";
   editButton.addEventListener("click", () => {
     modifyElement(editButton, true);
   });
   let deleteButton = document.createElement("button");
-  deleteButton.classList.add("fa-solid", "fa-trash-can", "delete");
-  deleteButton.style.fontSize = "1.2em";
+  //deleteButton.classList.add("fa-solid", "fa-trash-can", "delete");
+  deleteButton.classList.add("delete");
+  deleteButton.textContent = "Delete"; 
+  //deleteButton.style.fontSize = "1.2em";
   deleteButton.addEventListener("click", () => {
     modifyElement(deleteButton);
   });
