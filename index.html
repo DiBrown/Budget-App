@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Budget Me!</title>
+    <title>Budget App</title>
     <!-- Font Awesome Icons -->
     <link
       rel="stylesheet"
@@ -21,37 +21,37 @@
       <div class="container">
         <div class="sub-container">
           <!-- Budget -->
-          <div class="total-budget-container">
+          <div class="total-amount-container">
             <h3>Budget</h3>
             <p class="hide error" id="budget-error">
-              Budget value cannot be empty or negative
+              Value cannot be empty or negative
             </p>
             <input
               type="number"
-              id="total-budget"
-              placeholder="Enter Your Budget in Dollars"
+              id="total-amount"
+              placeholder="Enter Total Amount"
             />
-            <button class="submit" id="total-budget-button">Set Budget</button>
+            <button class="submit" id="total-amount-button">Set Budget</button>
           </div>
 
-          <!-- Expenditures -->
+          <!-- Expenditure -->
           <div class="user-amount-container">
             <h3>Expenses</h3>
-            <p class="hide error" id="expense-desc-error">
-              Expense values cannot be empty
+            <p class="hide error" id="product-title-error">
+              Values cannot be empty
             </p>
             <input
               type="text"
-              class="expense-desc"
-              id="expense-desc"
-              placeholder="Enter Expense Description"
+              class="product-title"
+              id="product-title"
+              placeholder="Enter Title of Product"
             />
             <input
               type="number"
               id="user-amount"
-              placeholder="Enter Expense Amount"
+              placeholder="Enter Cost of Product"
             />
-            <button class="submit" id="enter-expense">Submit Expense</button>
+            <button class="submit" id="check-amount">Check Amount</button>
           </div>
         </div>
         <!-- Output -->

@@ -1,13 +1,13 @@
-let totalAmount = document.getElementById("total-budget");
+let totalAmount = document.getElementById("total-amount");
 let userAmount = document.getElementById("user-amount");
-const enterExpenseButton = document.getElementById("enter-expense");
-const totalAmountButton = document.getElementById("total-budget-button");
-const expenseDesc = document.getElementById("expense-desc");
+const checkAmountButton = document.getElementById("check-amount");
+const totalAmountButton = document.getElementById("total-amount-button");
+const productTitle = document.getElementById("product-title");
 const errorMessage = document.getElementById("budget-error");
-const expenseDescError = document.getElementById("expense-desc-error");
-const expenseAmtError = document.getElementById("expense-amt-error");
+const productTitleError = document.getElementById("product-title-error");
+const productCostError = document.getElementById("product-cost-error");
 const amount = document.getElementById("amount");
-const expenseAmount = document.getElementById("expenditure-value");
+const expenditureValue = document.getElementById("expenditure-value");
 const balanceValue = document.getElementById("balance-amount");
 const list = document.getElementById("list");
 let tempAmount = 0;
@@ -23,7 +23,7 @@ totalAmountButton.addEventListener("click", () => {
     //Set Budget
     amount.innerHTML = tempAmount;
     //Set Balance
-    balanceValue.innerText = tempAmount - expenseAmount.innerText;
+    balanceValue.innerText = tempAmount - expenditureValue.innerText;
     //Clear Input Box
     totalAmount.value = "";
   }
@@ -41,16 +41,16 @@ const disableButtons = (bool) => {
 const modifyElement = (element, edit = false) => {
   let parentDiv = element.parentElement;
   let currentBalance = balanceValue.innerText;
-  let currentExpense = expenseAmount.innerText;
+  let currentExpense = expenditureValue.innerText;
   let parentAmount = parentDiv.querySelector(".amount").innerText;
   if (edit) {
-    let parentText = parentDiv.querySelector(".expense").innerText;
-    expenseDesc.value = parentText;
+    let parentText = parentDiv.querySelector(".product").innerText;
+    productTitle.value = parentText;
     userAmount.value = parentAmount;
     disableButtons(true);
   }
   balanceValue.innerText = parseInt(currentBalance) + parseInt(parentAmount);
-  expenseAmount.innerText =
+  expenditureValue.innerText =
     parseInt(currentExpense) - parseInt(parentAmount);
   parentDiv.remove();
 };
@@ -79,10 +79,10 @@ const listCreator = (expenseName, expenseValue) => {
 };
 
 //Function To Add Expenses
-enterExpenseButton.addEventListener("click", () => {
+checkAmountButton.addEventListener("click", () => {
   //empty checks
-  if (!userAmount.value || !expenseDesc.value) {
-    expenseDescError.classList.remove("hide");
+  if (!userAmount.value || !productTitle.value) {
+    productTitleError.classList.remove("hide");
     return false;
   }
   //Enable buttons
@@ -90,14 +90,14 @@ enterExpenseButton.addEventListener("click", () => {
   //Expense
   let expenditure = parseInt(userAmount.value);
   //Total expense (existing + new)
-  let sum = parseInt(expenseAmount.innerText) + expenditure;
-  expenseAmount.innerText = sum;
+  let sum = parseInt(expenditureValue.innerText) + expenditure;
+  expenditureValue.innerText = sum;
   //Total balance(budget - total expense)
   const totalBalance = tempAmount - sum;
   balanceValue.innerText = totalBalance;
   //Create list
-  listCreator(expenseDesc.value, userAmount.value);
+  listCreator(productTitle.value, userAmount.value);
   //Empty inputs
-  expenseDesc.value = "";
+  productTitle.value = "";
   userAmount.value = "";
 });
