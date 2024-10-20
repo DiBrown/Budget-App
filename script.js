@@ -209,3 +209,13 @@ checkAmountButton.addEventListener("click", () => {
   productTitle.value = "";
   userAmount.value = "";
 });
+
+//Function to Show Form
+function showForm() {
+  document.getElementById('formElement').style.display = 'block';
+}
+
+//Function for Submission Alert
+function submissionClick() {
+  alert("Thank you for contacting us!");
+}
