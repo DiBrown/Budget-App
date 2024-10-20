@@ -20,14 +20,101 @@ quitButton.addEventListener("click", () => {
   let currentBalance = balanceValue.innerText;
   let currentExpense = expenditureValue.innerText;
   localStorage.setItem("budgetAmt", currentBudget);
-  localStorage.setItem("balanceAmt", currentBalance);
   localStorage.setItem("expenseAmt", currentExpense);
-  console.log("currentBudget: "+currentBudget);
-  console.log("currentBalance: "+currentBalance);
-  console.log("currentExpense: "+currentExpense);
+  localStorage.setItem("balanceAmt", currentBalance);
+  //console.log("currentBudget: "+currentBudget);
+  //console.log("currentBalance: "+currentBalance);
+  //console.log("currentExpense: "+currentExpense);
 
+  const listElement = document.getElementById("list"); 
+  const prodElements = listElement.querySelectorAll('.product');
+  const amtElements = listElement.querySelectorAll('.amount');
+  const prodArray=[];
+  const amtArray=[];
+  for (const prod of prodElements) {
+    //console.log(prod.textContent);
+    prodArray.push(prod.textContent);
+    //console.log(prodArray);
+  }
+  for (const amt of amtElements) {
+    //console.log(amt.textContent);
+    amtArray.push(amt.textContent);
+    //console.log(amtArray);
+  }
+  const prodString  = JSON.stringify(prodArray);
+  //console.log(prodString);
+  const amtString = JSON.stringify(amtArray);
+  //console.log(amtString);
+  localStorage.setItem("prodArray",prodString);
+  localStorage.setItem("amtArray",amtString);
+
+  console.log("Data stored.");
 })
+
+function loadFromStorage() {
+  // Clear local storage for testing only
+  //localStorage.clear();
+  let bothFound = false;
+  let prodArray = [];
+  let amtArray = [];
+
+  // Retrieve Product array from local storage
+  const prodString = localStorage.getItem("prodArray");
+  // Check if the array exists in local storage
+  if (prodString) {
+    //console.log(prodString);
+    // Parse the string back into array
+    prodArray = JSON.parse(prodString);
+    //console.log(prodArray);
+    // Retrieve the Amount array from local storage
+    const amtString = localStorage.getItem("amtArray");
+    // Check if the array exists in local storage
+    if (amtString) {
+      //console.log(amtString);
+      bothFound = true;
+      // Parse the string back into an array
+      amtArray = JSON.parse(amtString);
+      //console.log(amtArray); // Output the retrieved array
+    } else {
+      console.log('Amount array not found in local storage.');
+    }
+  } else {
+    console.log("Product array not found in local storage");
+  }
+  if (bothFound) {
+    for (var i = 0; i < prodArray.length; i++) {
+        let sublistContent = document.createElement("div");
+        sublistContent.classList.add("sublist-content", "flex-space");
+        list.appendChild(sublistContent);
+        sublistContent.innerHTML = `<p class="product">${prodArray[i]}</p><p class="amount">${amtArray[i]}</p>`;
+        let editButton = document.createElement("button");
+        editButton.classList.add("edit");
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", () => {
+          modifyElement(editButton, true);
+        });
+        let deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete");
+        deleteButton.textContent = "Delete"; 
+        deleteButton.addEventListener("click", () => {
+          modifyElement(deleteButton);
+        });
+        sublistContent.appendChild(editButton);
+        sublistContent.appendChild(deleteButton);
+        document.getElementById("list").appendChild(sublistContent);
+    }
+    amount.innerText = localStorage.getItem("budgetAmt");
+    expenditureValue.innerText = localStorage.getItem("expenseAmt");
+    balanceValue.innerText = localStorage.getItem("balanceAmt");
+  } else {
+    amount.innerText = 0;
+    expenditureValue.innerText = 0;
+    balanceValue.innerText = 0;
+  }
+  localStorage.clear();
+}
 //Set Budget Part
+loadFromStorage();
 totalAmountButton.addEventListener("click", () => {
   tempAmount = totalAmount.value;
   //empty or negative input
