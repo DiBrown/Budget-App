@@ -132,6 +132,30 @@ body {
   display: grid;
   grid-template-columns: 3fr 2fr 1fr 1fr;
 }
+.food {
+  border-left: 0.3em solid #37817e;
+}
+.clothing {
+  border-left: 0.3em solid #881662;
+}
+.household {
+  border-left: 0.3em solid rgb(60, 60, 153);
+}
+.housing {
+  border-left: 0.3em solid rgb(165, 123, 45);
+}
+.debt {
+  border-left: 0.3em solid rgb(179, 37, 56);
+}
+.pets {
+  border-left: 0.3em solid rgb(130, 192, 14);
+}
+.transportation {
+  border-left: 0.3em solid rgb(7, 114, 48);
+}
+.other {
+  border-left: 0.3em solid rgb(39, 41, 39);
+}
 .expense {
   font-weight: 500;
   color: #363d55;
@@ -223,13 +247,12 @@ body {
   color: var(--dark);
 }
 
-
 @media screen and (max-width: 600px) {
   .wrapper {
     font-size: 14px;
   }
   .sub-container {
-    grid-template-columns: 1fr;
-    gap: 1em;
+    grid-template-columns: 1fr 1fr;
+    gap: 3em;
   }
 }

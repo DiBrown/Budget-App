@@ -1,5 +1,6 @@
 let totalAmount = document.getElementById("total-amount");
 let userAmount = document.getElementById("user-amount");
+let expenseCat = document.getElementById("selectCat");
 const checkAmountButton = document.getElementById("check-amount");
 const totalAmountButton = document.getElementById("total-amount-button");
 const productTitle = document.getElementById("expense-descr");
@@ -9,8 +10,10 @@ const productCostError = document.getElementById("product-cost-error");
 const amount = document.getElementById("amount");
 const expenditureValue = document.getElementById("expenditure-value");
 const balanceValue = document.getElementById("balance-amount");
+const dropDown = document.getElementById("dropdown-content");
 const list = document.getElementById("list");
 const quitButton = document.getElementById("quit-button");
+const categories = ["food","clothing","household","housing","debt","pets","transportation","other"];
 let tempAmount = 0;
 
 //Set Quit
@@ -28,13 +31,20 @@ quitButton.addEventListener("click", () => {
 
   const listElement = document.getElementById("list"); 
   const prodElements = listElement.querySelectorAll('.product');
+  const catElements = listElement.querySelectorAll('.category');
   const amtElements = listElement.querySelectorAll('.amount');
   const prodArray=[];
+  const catArray=[];
   const amtArray=[];
   for (const prod of prodElements) {
     //console.log(prod.textContent);
     prodArray.push(prod.textContent);
     //console.log(prodArray);
+  }
+  for (const cat of catElements) {
+    //console.log(cat.textContent);
+    catArray.push(cat.textContent);
+    //console.log(catArray);
   }
   for (const amt of amtElements) {
     //console.log(amt.textContent);
@@ -42,10 +52,11 @@ quitButton.addEventListener("click", () => {
     //console.log(amtArray);
   }
   const prodString  = JSON.stringify(prodArray);
-  //console.log(prodString);
+  const catString = JSON.stringify(catArray);
   const amtString = JSON.stringify(amtArray);
-  //console.log(amtString);
+
   localStorage.setItem("prodArray",prodString);
+  localStorage.setItem("catArray",catString);
   localStorage.setItem("amtArray",amtString);
 
   console.log("Data stored.");
@@ -54,8 +65,9 @@ quitButton.addEventListener("click", () => {
 function loadFromStorage() {
   // Clear local storage for testing only
   //localStorage.clear();
-  let bothFound = false;
+  let allFound = false;
   let prodArray = [];
+  let catArray = [];
   let amtArray = [];
 
   // Retrieve Product array from local storage
@@ -66,27 +78,40 @@ function loadFromStorage() {
     // Parse the string back into array
     prodArray = JSON.parse(prodString);
     //console.log(prodArray);
-    // Retrieve the Amount array from local storage
-    const amtString = localStorage.getItem("amtArray");
+
+    // Retrieve the Category array from local storage
+    const catString = localStorage.getItem("catArray");
     // Check if the array exists in local storage
-    if (amtString) {
-      //console.log(amtString);
-      bothFound = true;
-      // Parse the string back into an array
-      amtArray = JSON.parse(amtString);
-      //console.log(amtArray); // Output the retrieved array
+    if (catString) {
+      //console.log(catString);
+      // Parse the string back into array
+      catArray = JSON.parse(catString);
+      //console.log(catArray);
+
+      // Retrieve the Amount array from local storage
+      const amtString = localStorage.getItem("amtArray");
+      // Check if the array exists in local storage
+      if (amtString) {
+        //console.log(amtString);
+        allFound = true;
+        // Parse the string back into an array
+        amtArray = JSON.parse(amtString);
+        //console.log(amtArray); // Output the retrieved array
+      } else {
+        console.log('Amount array not found in local storage.');
+      }
     } else {
-      console.log('Amount array not found in local storage.');
+      console.log("Category array not found in local storage");
     }
   } else {
     console.log("Product array not found in local storage");
   }
-  if (bothFound) {
+  if (allFound) {
     for (var i = 0; i < prodArray.length; i++) {
         let sublistContent = document.createElement("div");
-        sublistContent.classList.add("sublist-content", "flex-space");
+        sublistContent.classList.add("sublist-content", "flex-space", catArray[i]);
         list.appendChild(sublistContent);
-        sublistContent.innerHTML = `<p class="product">${prodArray[i]}</p><p class="amount">${amtArray[i]}</p>`;
+        sublistContent.innerHTML = `<p class="product">${prodArray[i]}</p><p class="category">${catArray[i]}</p><p class="amount">${amtArray[i]}</p>`;
         let editButton = document.createElement("button");
         editButton.classList.add("edit");
         editButton.textContent = "Edit";
@@ -130,6 +155,18 @@ totalAmountButton.addEventListener("click", () => {
     totalAmount.value = "";
   }
 });
+var select = document.getElementById("selectCat");
+console.log(categories);
+for(var i = 0; i < categories.length; i++) {
+    var cat = categories[i];
+    //console.log("cat: "+cat);
+    var el = document.createElement("option");
+    //console.log("option created");
+    el.textContent = cat;
+    el.value = cat;
+    select.appendChild(el);
+}
+
 
 //Function To Disable Edit and Delete Button
 const disableButtons = (bool) => {
@@ -160,11 +197,12 @@ const modifyElement = (element, edit = false) => {
 };
 
 //Function To Create List
-const listCreator = (expenseName, expenseValue) => {
+//const listCreator = (expenseName, expenseValue) => {
+const listCreator = (expenseName, expenseCat, expenseValue) => {
   let sublistContent = document.createElement("div");
-  sublistContent.classList.add("sublist-content", "flex-space");
+  sublistContent.classList.add("sublist-content", "flex-space", expenseCat);
   list.appendChild(sublistContent);
-  sublistContent.innerHTML = `<p class="product">${expenseName}</p><p class="amount">${expenseValue}</p>`;
+  sublistContent.innerHTML = `<p class="product">${expenseName}</p><p class="category">${expenseCat}</p><p class="amount">${expenseValue}</p>`;
   let editButton = document.createElement("button");
   editButton.classList.add("edit");
   editButton.textContent = "Edit";
@@ -194,6 +232,8 @@ checkAmountButton.addEventListener("click", () => {
   disableButtons(false);
   //Expense
   let expenditure = parseInt(userAmount.value);
+  //let category = expenseCat.value;
+  //console.log("category: "+category);
   //Total expense (existing + new)
   let sum = parseInt(expenditureValue.innerText) + expenditure;
   expenditureValue.innerText = sum;
@@ -201,7 +241,8 @@ checkAmountButton.addEventListener("click", () => {
   const totalBalance = tempAmount - sum;
   balanceValue.innerText = totalBalance;
   //Create list
-  listCreator(productTitle.value, userAmount.value);
+  //listCreator(productTitle.value, userAmount.value);
+  listCreator(productTitle.value, expenseCat.value, userAmount.value );
   //Empty inputs
   productTitle.value = "";
   userAmount.value = "";
