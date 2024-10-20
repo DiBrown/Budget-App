@@ -130,7 +130,7 @@ body {
   margin-bottom: 0.6em;
   padding: 0.5em 1em;
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr 1fr;
+  grid-template-columns: 3fr 2fr 1fr 1fr 1fr;
 }
 .food {
   border-left: 0.3em solid #37817e;
@@ -226,7 +226,7 @@ body {
 .contact-button {
   background-color: var(--dark);
   color: var(--light-primary);
-  width: 77%;
+  width: 30%;
   border-radius: 5px;
   padding: 10px;
 }
