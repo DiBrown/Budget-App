@@ -145,7 +145,7 @@ const modifyElement = (element, edit = false) => {
   let currentBalance = balanceValue.innerText;
   let currentExpense = expenditureValue.innerText;
   let parentAmount = parentDiv.querySelector(".amount").innerText;
-  console.log("parentAmount: "+parentAmount);
+  //console.log("parentAmount: "+parentAmount);
   if (edit) {
     let parentText = parentDiv.querySelector(".product").innerText;
     console.log("parentText: "+parentText);
@@ -166,18 +166,14 @@ const listCreator = (expenseName, expenseValue) => {
   list.appendChild(sublistContent);
   sublistContent.innerHTML = `<p class="product">${expenseName}</p><p class="amount">${expenseValue}</p>`;
   let editButton = document.createElement("button");
-  //editButton.classList.add("fa-solid", "fa-pen-to-square", "edit");
   editButton.classList.add("edit");
-  //editButton.style.fontSize = "1.2em";
   editButton.textContent = "Edit";
   editButton.addEventListener("click", () => {
     modifyElement(editButton, true);
   });
   let deleteButton = document.createElement("button");
-  //deleteButton.classList.add("fa-solid", "fa-trash-can", "delete");
   deleteButton.classList.add("delete");
   deleteButton.textContent = "Delete"; 
-  //deleteButton.style.fontSize = "1.2em";
   deleteButton.addEventListener("click", () => {
     modifyElement(deleteButton);
   });
@@ -194,6 +190,7 @@ checkAmountButton.addEventListener("click", () => {
     return false;
   }
   //Enable buttons
+  productTitleError.classList.add("hide");
   disableButtons(false);
   //Expense
   let expenditure = parseInt(userAmount.value);
