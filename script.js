@@ -156,7 +156,7 @@ totalAmountButton.addEventListener("click", () => {
   }
 });
 var select = document.getElementById("selectCat");
-console.log(categories);
+//console.log(categories);
 for(var i = 0; i < categories.length; i++) {
     var cat = categories[i];
     //console.log("cat: "+cat);
